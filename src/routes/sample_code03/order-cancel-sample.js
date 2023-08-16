@@ -62,7 +62,7 @@ export const processOrderCancle = async (SALES_DATA) => {
 
 
 const orderCancel_kcp = async (SALES_DATA) => {
-    const certData = await getPgCertData_PGCERTTB(SALES_DATA.HEADER.MS_NO,'14')
+    const certData = await getPgCertData_PGCERTTB(SALES_DATA.HEADER.MS_NO, 'kcp')
     const KCP_CERT_INFO = certData.CERT_INFO1.replace(/\r?\n/g, '')
     const KCP_PRIKEY_PKCS8 = certData.CERT_INFO2
     const password = certData.CERT_INFO3
@@ -97,7 +97,7 @@ const orderCancel_kcp = async (SALES_DATA) => {
 }
 
 const orderCancel_nice = async (SALES_DATA) => {
-    const certData = await getPgCertData_PGCERTTB(SALES_DATA.HEADER.MS_NO,'16') 
+    const certData = await getPgCertData_PGCERTTB(SALES_DATA.HEADER.MS_NO, 'nice') 
     const merchantID = certData.CERT_INFO1
     const merchantKey = certData.CERT_INFO2
     const moid = 'astems_web_kiosk'
