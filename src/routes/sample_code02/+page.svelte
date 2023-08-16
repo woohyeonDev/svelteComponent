@@ -1,8 +1,8 @@
 <script>
-	import { generateSam } from './../../lib/payment/clientProcess.js'
-	import { browser } from '$app/environment'   
+    import { generateSam } from './../../lib/payment/clientProcess.js'
+    import { browser } from '$app/environment'   
     import {goPage} from '$lib/util/util'
-	import { rollbackCartList } from '../../lib/order/clientService.js'
+    import { rollbackCartList } from '../../lib/order/clientService.js'
 
     /** @type {import('./$types').ActionData} */
     export let form
