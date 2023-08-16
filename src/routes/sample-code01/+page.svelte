@@ -1,6 +1,6 @@
 <script lang='ts'>
-	//일부 코드만 올립니다...
-	import axios from "axios";
+    //일부 코드만 올립니다...
+    import axios from "axios";
     import ConferenceRoomList from './ConferenceRoomList.svelte';
     import CustomDatePicker from './CustomDatePicker.svelte';
     import { onMount } from "svelte";
