@@ -1,5 +1,10 @@
 
-//일부 코드만 올립니다
+/**
+ * 주문 취소 코드 
+ * 주문 취소 매출 데이터 생성
+ * 밴코드 별로  pg사별 주문 취소 로직 실행
+ * db에 반영
+ */
 export const processOrderCancle = async (SALES_DATA) => {
     console.log(SALES_DATA);
     SALES_DATA = await generateDetailData(SALES_DATA)
@@ -60,7 +65,14 @@ export const processOrderCancle = async (SALES_DATA) => {
     }   
 }  
 
-
+/**
+ * kcp 주문 취소 로직 
+ * 디비에서 인증서 데이터 가져오기
+ * 디비에서 cat id 정보 가져오기
+ * 암호화 데이터 생성
+ * 주문 취소 요청 데이터 생성
+ * 데이터 파싱
+ */
 const orderCancel_kcp = async (SALES_DATA) => {
     const certData = await getPgCertData_PGCERTTB(SALES_DATA.HEADER.MS_NO, 'kcp')
     const KCP_CERT_INFO = certData.CERT_INFO1.replace(/\r?\n/g, '')
@@ -95,7 +107,13 @@ const orderCancel_kcp = async (SALES_DATA) => {
     return json({code:500, msg:'주문 취소 실패'})
     
 }
-
+/**
+ * nice 주문 취소 로직 
+ * 디비에서 인증서 데이터 가져오기 * 
+ * 암호화 데이터 생성
+ * 주문 취소 요청 데이터 생성
+ * 데이터 파싱
+ */
 const orderCancel_nice = async (SALES_DATA) => {
     const certData = await getPgCertData_PGCERTTB(SALES_DATA.HEADER.MS_NO, 'nice') 
     const merchantID = certData.CERT_INFO1
@@ -121,6 +139,9 @@ const orderCancel_nice = async (SALES_DATA) => {
     else return {code:500, msg:'주문 취소 실패'} 
 }
 
+/**
+ * kcp 서명 데이터 생성
+ */
 export const make_sign_data = (serverData, KCP_PRIKEY_PKCS8, password) => {
     // 개인키 READ
     // "splPrikeyPKCS8.pem" 은 테스트용 개인키
@@ -137,6 +158,10 @@ export const make_sign_data = (serverData, KCP_PRIKEY_PKCS8, password) => {
     }, 'base64');
 }
 
+/**
+ * nice 취소 요청 데이터 생성
+ * buffer를 utf8로 디코딩 * 
+ */
 async function cancelRequest(data){
     try {
         const response = await fetch(data.NetCancelURL, {
@@ -169,11 +194,18 @@ async function cancelRequest(data){
     }
 }
 
+/**
+ * nice 서명 데이터 생성
+ */
 const getSignData=(data)=>{
     const encrypted = SHA256(data)
     return encrypted
 }
 
+
+/**
+ * 밴코드별로 함수 다른 취소 로직 수행
+ */
 const orderCancel_map = {
     '14': orderCancel_kcp,
     '16': orderCancel_nice

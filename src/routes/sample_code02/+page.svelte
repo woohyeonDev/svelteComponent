@@ -9,6 +9,12 @@
     let serverDataJson = JSON.stringify(form)
     let serverData = JSON.parse(serverDataJson)     
     
+    /**
+     * 리턴url 없을시 로컬디비에 프로모션 적용 데이터 초기화 
+     * 및 카트리스트로 돌아가기
+     * url 있을경우
+     * 결제화면 url 생성및 submit
+     */
     const callPayForm = async ()=>{        
         if(!serverData.Ret_URL) {           
             await rollbackCartList()                
@@ -17,7 +23,12 @@
         const PayUrl = document.order_info.PayUrl.value
         document.order_info.action = PayUrl.substring(0,PayUrl.lastIndexOf("/")) + "/jsp/encodingFilter/encodingFilter.jsp"
         document.order_info.submit()        
-    }     
+    }
+    /**
+     * 매출 데이터 파싱
+     * 디비에 들어갈 매출 데이터 생성
+     * form에 데이터 담고 kcp_api_pay로 submit
+     */     
     const checkPay = async () =>{        
         self.name = "tar_opener"       
         const salesData = JSON.parse(serverData.salesDataJson)
@@ -27,6 +38,12 @@
         payForm.samJson.value = samJson          
         payForm.submit() 
     } 
+
+    /**
+     * enc_info 데이터 없을시에 결제 화면으로 이동
+     * res_cd가 0000 즉 성공일 경우 결제 완료 처리 페이지로 이동
+     * 둘다 아닐경우 카트리스트 롤백후 이전 페이지로 돌아가기
+     */  
     const payController = async () =>{        
         if(!serverData.enc_info) return callPayForm()
         else if(serverData.res_cd=='0000') return checkPay()
@@ -35,6 +52,9 @@
             return goPage('/cart')
         }
     }
+    /**
+     * 서버에서 생성한 html파일을 클라이언트가 받았을때 controlloer 실행 
+     */    
     if(browser)payController();       
 </script>
 <form  name="order_info" method="post" >                           
