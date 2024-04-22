@@ -3,18 +3,10 @@
   import axios from "axios";
   import { order_list_store } from "./store";
   import { page } from "$app/stores";  
+  import { NOMAL, CANCEL, EAT_IN, PICK_UP, DELIVERY, POS, KIOSK, JINGERBELL, DRIVETHRU} from '@lib/constant'
 
   let order_list;
   const pos_no = $page.params.pos_no;
-  const NOMAL = "00";
-  const CANCEL = "01";
-  const EAT_IN = "00";
-  const PICK_UP = "01";
-  const DELIVERY = "02";
-  const POS = "00";
-  const KIOSK = "01";
-  const JINGERBELL = "02";
-  const DRIVETHRU = "03";
   order_list_store.subscribe((v) => (order_list = v));
   const cardPayment = async (
     ORDER_FG,
@@ -24,7 +16,7 @@
   ) => {
     if (order_list.length == 0) return alert("상품을 선택하세요");
     const ORDER_DATA = {};
-    /* 주문 데이터 생성 로직 */
+    /* 주문 데이터 생성 로직 생략*/
     const res = await axios.post("/api/save-order-accepted-data", ORDER_DATA);
     result = res.data;
     if (result.ok) {
@@ -35,14 +27,14 @@
     }
   };
   const vcat =  async ()=>{
-    // const post_data = {
-    //   PROC_CODE: "A01",
-    //   WORK_CODE: "0100",
-    //   INS_MON: "00"
-    // }
-    // const response = await axios.post('/api/atpos/vcat/set', post_data)
-    // console.log(response);    
-    // await printer()
+    const post_data = {
+      PROC_CODE: "A01",
+      WORK_CODE: "0100",
+      INS_MON: "00"
+    }
+    const response = await axios.post('/api/atpos/vcat/set', post_data)
+    console.log(response);    
+    await printer()
   }
   const printer =  async ()=>{
     const post_data = {
