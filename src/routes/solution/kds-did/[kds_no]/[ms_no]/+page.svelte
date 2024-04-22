@@ -227,16 +227,12 @@
       {revert_list}
       {lastPage}
     />
-    <div
-      id="grid"
-      class="{config.template_config_data.SUMMARY_USE_YN == 'Y'
-        ? 'w-[80%]'
-        : 'w-full'} h-[calc(100%-6rem)] grid grid-cols-6 grid-rows-2 {fontSizeMap[
-        Number(config.template_config_data.FONT_SIZE_FG)
-      ]}"  >
-      <OrderSpan bind:kds_data />
-      <EmptySpan empty_span config /> 
-    </div>
+    <KdsBody 
+    config  
+    bind:kds_data  
+    empty_span 
+    {prepare}    
+    />
     {#if config.template_config_data.SUMMARY_USE_YN == "Y"}
       <Summary kds_data />
     {/if}
