@@ -233,55 +233,12 @@
         ? 'w-[80%]'
         : 'w-full'} h-[calc(100%-6rem)] grid grid-cols-6 grid-rows-2 {fontSizeMap[
         Number(config.template_config_data.FONT_SIZE_FG)
-      ]}"
-    >
-      {#each kds_data as orderData, index}
-        <Item
-          {data}
-          {orderData}
-          {index}
-          {config}
-          {code_name}
-          on:refresh={getKdsOrderData}
-        />
-      {/each}
-
-      {#if empty_span > 0}
-        {#each new Array(empty_span) as _, index}
-          <div
-            class="bg-[#040404] col-span-1 border m-[2px] flex justify-center items-center rounded"
-          >
-            {#if config.template_config_data.USE_LOGO_YN == "Y"}
-              <AstemsLogo />
-            {/if}
-          </div>
-        {/each}
-      {/if}
+      ]}"  >
+      <OrderSpan bind:kds_data />
+      <EmptySpan empty_span config /> 
     </div>
     {#if config.template_config_data.SUMMARY_USE_YN == "Y"}
-      <div
-        class="w-[20%] h-[calc(100%-6rem)] text-white grid grid-cols-1 select-none"
-      >
-        <div class="m-1 border border-white rounded">
-          <div
-            class="w-full h-[6vh] flex justify-center items-center text-center text-[24px] font-bold border-b"
-          >
-            {config.template_config_data.SUMMARY_SUBJECT}
-          </div>
-          {#if kds_data}
-            {#each kds_data as orderData}
-              {#each orderData.DETAILS as row}
-                {#if !row.ROOT_ITEM_UID}
-                  <div class="px-2 py-1">
-                    {row.ORDER_QTY}
-                    {row.ITEM_NM}
-                  </div>
-                {/if}
-              {/each}
-            {/each}
-          {/if}
-        </div>
-      </div>
+      <Summary kds_data />
     {/if}
     <KdsFooter
       template_channel_data={config.template_channel_data}
