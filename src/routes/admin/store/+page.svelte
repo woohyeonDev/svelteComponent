@@ -57,17 +57,6 @@
         </div>
       </div>
       <div class="grid grid-cols-6 border-collapse border">
-        <!-- <div class=" bg-primary-100 text-center py-1 border">매장코드</div>
-        <div class=" border col-span-2 flex items-center">
-          <input
-            name="MS_NO"
-            type="text"
-            pattern="[A-Z]{'{'}2}[0-9]{'{'}4}"
-            class="rounded border w-full mx-2 hover:ring-1 ring-stone-200 focus:outline-1 outline-stone-300"
-            bind:value={store_config_data.MS_NO}
-            required
-          />
-        </div> -->
         <div class=" bg-primary-100 text-center py-1 border">매장이름</div>
         <div class=" border col-span-2 flex items-center">
           <input
