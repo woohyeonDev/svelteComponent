@@ -1,13 +1,13 @@
 
 <script lang="js">
-    import LeftHeader from './LeftHeader.svelte'
-    import LeftItemList from './LeftItemList.svelte'
-    import LeftSlipList from './LeftSlipList.svelte';
-    import LeftMsg from './LeftMsg.svelte'
-    import LeftFooter from './LeftFooter.svelte';
-    import RightTopGrid from './RightTopGrid.svelte';
-    import RightMidGrid from './RightMidGrid.svelte';
-    import RightBottomGrid from './RightBottomGrid.svelte'
+    import Header from './Header.svelte'
+    import CartList from './CartList.svelte'
+    import SlipList from './SlipList.svelte';
+    import Msg from './Msg.svelte'
+    import PaymertInfo from './PaymertInfo.svelte';
+    import Category from './Category.svelte';
+    import GoodsList from './GoodsList.svelte';
+    import PaymentType from './PaymentType.svelte'
     import axios from 'axios';
     import { onMount } from 'svelte';
     import ItemOpt from './ItemOpt.svelte';
@@ -43,16 +43,16 @@
 <div class=" w-full h-screen  bg-gray-100 p-1">
     <div class="flex flex-nowrap grow  h-full space-x-1">
         <div class=" flex-1 h-full space-y-1">
-            <LeftHeader />
-            <LeftItemList />
-            <LeftSlipList />
-            <LeftMsg />  
-            <LeftFooter /> 
+            <Header />
+            <CartList />
+            <SlipList />
+            <Msg />  
+            <PaymertInfo /> 
         </div>       
         <div class=" flex-1 h-full space-y-1 ">  
-            <RightTopGrid  />
-            <RightMidGrid  />
-            <RightBottomGrid />
+            <Category  />
+            <GoodsList  />
+            <PaymentType />
         </div>
     </div>
 </div>    
