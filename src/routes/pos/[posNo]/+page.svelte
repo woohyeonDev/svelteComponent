@@ -32,14 +32,10 @@
             axios.get(`/api/atpos/fetch/item-opt`),
             axios.get(`/api/atpos/fetch/item-opt-menu`),
         ])          
-        const category_result = category_response.data
-        const item_result = item_response.data        
-        const item_opt_result = item_opt_response.data
-        const item_opt_menu_result = item_opt_menu_response.data
-        category_store.update(() => category_result.data)
-        item_store.update(()=> item_result.data)       
-        item_opt_store.update(()=>item_opt_result.data)
-        item_opt_menu_store.update(()=>item_opt_menu_result.data)
+        category_store.update(() => category_response)
+        item_store.update(()=> item_response)       
+        item_opt_store.update(()=>item_opt_response)
+        item_opt_menu_store.update(()=>item_opt_menu_response)
         csr = true
     })     
 </script>
